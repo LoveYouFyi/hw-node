@@ -9,6 +9,27 @@ const data =
       insurance_company: 'Ledner'
     },
     {
+      user_id: 'jstea',
+      first_name: 'Jane',
+      last_name: 'Smith',
+      version: '2',
+      insurance_company: 'Ledner'
+    },
+    {
+      user_id: 'jsmith',
+      first_name: 'Jim',
+      last_name: 'Smith',
+      version: '5',
+      insurance_company: 'Ledner'
+    },
+    {
+      user_id: 'johnsmith',
+      first_name: 'John',
+      last_name: 'Smith',
+      version: '9',
+      insurance_company: 'Ledner'
+    },
+    {
       user_id: 'kjeavons1',
       first_name: 'Kelsey',
       last_name: 'Jeavons',
