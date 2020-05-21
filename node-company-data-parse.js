@@ -1,12 +1,19 @@
 
 const data = 
   [
-    {
-      user_id: 'mfattori0',
-      first_name: 'Mariya',
-      last_name: 'Fattori',
-      version: '5',
+   {
+      user_id: 'johnsmith',
+      first_name: 'John',
+      last_name: 'Smith',
+      version: '9',
       insurance_company: 'Ledner'
+    },
+    {
+      user_id: 'mpagden4',
+      first_name: 'Miranda',
+      last_name: 'Pagden',
+      version: '4',
+      insurance_company: 'Orn'
     },
     {
       user_id: 'jstea',
@@ -16,37 +23,9 @@ const data =
       insurance_company: 'Ledner'
     },
     {
-      user_id: 'jsmith',
-      first_name: 'Jim',
-      last_name: 'Smith',
-      version: '5',
-      insurance_company: 'Ledner'
-    },
-    {
-      user_id: 'johnsmith',
-      first_name: 'John',
-      last_name: 'Smith',
-      version: '9',
-      insurance_company: 'Ledner'
-    },
-    {
       user_id: 'kjeavons1',
       first_name: 'Kelsey',
       last_name: 'Jeavons',
-      version: '9',
-      insurance_company: 'Ledner'
-    },
-    {
-      user_id: 'xfeldklein2',
-      first_name: 'Xerxes',
-      last_name: 'Feldklein',
-      version: '5',
-      insurance_company: 'Ledner'
-    },
-    {
-      user_id: 'xfeldklein2',
-      first_name: 'Xerxes',
-      last_name: 'Feldklein',
       version: '9',
       insurance_company: 'Ledner'
     },
@@ -58,6 +37,20 @@ const data =
       insurance_company: 'Pfannerstill'
     },
     {
+      user_id: 'xfeldklein2',
+      first_name: 'Xerxes',
+      last_name: 'Feldklein',
+      version: '5',
+      insurance_company: 'Ledner'
+    },
+    {
+      user_id: 'xfeldklein2',
+      first_name: 'Xerxes',
+      last_name: 'Feldklein',
+      version: '9',
+      insurance_company: 'Ledner'
+    },
+   {
       user_id: 'cdrewe5',
       first_name: 'Cathy',
       last_name: 'Drewe',
@@ -86,6 +79,13 @@ const data =
       insurance_company: 'Orn'
     },
     {
+      user_id: 'mfattori0',
+      first_name: 'Mariya',
+      last_name: 'Fattori',
+      version: '5',
+      insurance_company: 'Ledner'
+    },
+    {
       user_id: 'jmarlow9',
       first_name: 'Jewel',
       last_name: 'Marlow',
@@ -93,17 +93,17 @@ const data =
       insurance_company: 'Orn'
     },
     {
-      user_id: 'mpagden4',
-      first_name: 'Miranda',
-      last_name: 'Pagden',
-      version: '9',
-      insurance_company: 'Orn'
+      user_id: 'jsmith',
+      first_name: 'Jim',
+      last_name: 'Smith',
+      version: '5',
+      insurance_company: 'Ledner'
     },
     {
       user_id: 'mpagden4',
       first_name: 'Miranda',
       last_name: 'Pagden',
-      version: '4',
+      version: '9',
       insurance_company: 'Orn'
     },
     {
@@ -115,11 +115,17 @@ const data =
     }
     ]
 
+const concatName = x => x['last_name'] + " " + x['first_name'];
+
+const valueType = val => typeof val === 'string' ? val.toUpperCase() : val;
+
+
+
 // argument 'propKey' value must be of type 'string' or 'number'
-const sortObjectsAsc = (array, propKey) => array.sort((a, b) => {
-  const value = val => typeof val === 'string' ? val.toUpperCase() : val;
-  const valueA = value(a[propKey]);
-  const valueB = value(b[propKey]);
+const sortObjectsAsc = (array) => array.sort((a, b) => {
+
+  const valueA = valueType(concatName(a));
+  const valueB = valueType(concatName(b));
   
   if (valueA > valueB ) return 1;
   if (valueA < valueB) return -1;
@@ -130,4 +136,13 @@ const objectValuesByKey = array => propKey => array.reduce((a, c) => {
   a.push(c[propKey]);
   return a;
 }, []);
+
+
+//console.log(sortObjectsAsc(data));
+
+//console.log(sortObjectsAsc(data));
+
+const unique = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
+
+console.log(unique(data, 'insurance_company'));
 
