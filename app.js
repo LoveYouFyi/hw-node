@@ -4,7 +4,9 @@ const csvParser = require('csv-parser');
 // file to parse 
 const file = './parseme.csv'
 
-// filestream access readstream object
+//
+// Read File
+//
 fs.createReadStream(file)
   // checks for potential file errors before reading
   .on('err', () => {
@@ -21,5 +23,22 @@ fs.createReadStream(file)
 
   .on('end', () => {
     // handle end of CSV
-    console.log("Finished!");
+    console.log("Finished Read!");
   })
+
+
+//
+// Write File
+//
+let writeStream = fs.createWriteStream('company1.txt');
+
+// write data
+writeStream.write('wreitre8refr8ej8f4j38f4j83jf43jfdiajwea');
+
+// finish event emitted once all data written from stream
+writeStream.on('finish', () => {
+    console.log('Finished Write!');
+});
+
+// close stream / ends processing
+writeStream.end();
