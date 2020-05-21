@@ -137,25 +137,18 @@ const objectValuesByKey = array => propKey => array.reduce((a, c) => {
 
 //console.log(sortObjectsAsc(data));
 
-const unique = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
+const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
-//console.log(unique(data, 'insurance_company'));
+const companyRows = (array, co) => array.filter(row => row.insurance_company === co);
 
-const these = (array, co) => array.filter(row => {
-  return row.insurance_company === co;
+const companies = []
+const byCo = array => distinctCompanyNames(array, 'insurance_company').map(co => {
+  const filtered = companyRows(data, co);
+
+  return companies.push(filtered);
 });
-//console.log(these(data, 'Orn'));
 
-const byCoTest = array => unique(array, 'insurance_company').map(co => {
-  console.log(these(data, co));
-});
-byCoTest(data);
+byCo(data);
+console.log("got: ", companies);
 
-const got = []
-// return 
-const byCo = array => unique(array, 'insurance_company').forEach(co => {
-  const save = these(data, co);
-  console.log("save: ", save);
-  return got.push(save);
-});
 
