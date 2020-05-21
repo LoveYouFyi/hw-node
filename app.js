@@ -17,7 +17,7 @@ fs.createReadStream(file)
   // reads each row individually 
   .on('data', row => {
 //    console.log({ row });
-    data.push({ row })
+    data.push(row)
   })
   // once read finished
   .on('end', () => {
