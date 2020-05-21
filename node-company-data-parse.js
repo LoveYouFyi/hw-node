@@ -119,8 +119,6 @@ const concatName = x => x['last_name'] + " " + x['first_name'];
 
 const valueType = val => typeof val === 'string' ? val.toUpperCase() : val;
 
-
-
 // argument 'propKey' value must be of type 'string' or 'number'
 const sortObjectsAsc = (array) => array.sort((a, b) => {
 
@@ -137,12 +135,27 @@ const objectValuesByKey = array => propKey => array.reduce((a, c) => {
   return a;
 }, []);
 
-
-//console.log(sortObjectsAsc(data));
-
 //console.log(sortObjectsAsc(data));
 
 const unique = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
-console.log(unique(data, 'insurance_company'));
+//console.log(unique(data, 'insurance_company'));
+
+const these = (array, co) => array.filter(row => {
+  return row.insurance_company === co;
+});
+//console.log(these(data, 'Orn'));
+
+const byCoTest = array => unique(array, 'insurance_company').map(co => {
+  console.log(these(data, co));
+});
+byCoTest(data);
+
+const got = []
+// return 
+const byCo = array => unique(array, 'insurance_company').forEach(co => {
+  const save = these(data, co);
+  console.log("save: ", save);
+  return got.push(save);
+});
 
