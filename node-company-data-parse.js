@@ -147,28 +147,30 @@ const duplicates =
     }
   ]
 
-const remove = []
-const deDuped = (array) => array.sort((a, b) => {
+const arrayElementsToRemoveByIndex = []
+
+const arrayDuplicatesFlagVersionToRemove = (array, removeList) => array.sort((a, b) => {
   if (a.user_id === b.user_id) {
     if (a.version <= b.version) {
       const indexA = array.indexOf(a);
-      remove.push(indexA);
+      removeList.push(indexA);
     }
     if (a.version >= b.version) {
       const indexB = array.indexOf(b);
-      remove.push(indexB);
+      removeList.push(indexB);
     }
   }
 });
-deDuped(duplicates);
-console.log("remove: ", remove);
 
-const me = remove.map((e) => {
-  console.log("hello 1 ", duplicates[e]);
-  return duplicates.splice(e, 1);
+arrayDuplicatesFlagVersionToRemove(duplicates, arrayElementsToRemoveByIndex);
+console.log("11111 ", arrayElementsToRemoveByIndex);
+
+const arrayRemoveDuplicates = (arrayMap, arrayToTrim) => arrayMap.map((e) => {
+//  console.log("hello 1 ", arrayToTrim[e]);
+  return arrayToTrim.splice(e, 1);
 });
 
-console.log("me: ", me);
+console.log("me: ", arrayRemoveDuplicates(arrayElementsToRemoveByIndex, duplicates));
 console.log("duplicates: ", duplicates);
 
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
@@ -186,13 +188,14 @@ const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => 
 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
-//const rowsByCompany = distinctCompanyNames(duplicates, 'insurance_company').map(name => {
-  //const filtered = distinctCompanyRows(duplicates, name);
-  //const sorted = sortByLastThenFirstName(filtered);
-  //const deDu = deDuped(sorted);
-
-  //return deDu;
-//});
+const rowsByCompany = distinctCompanyNames(duplicates, 'insurance_company').map(name => {
+  const removeThese = [];
+  const filtered = distinctCompanyRows(duplicates, name);
+  const sorted = sortByLastThenFirstName(filtered);
+  arrayDuplicatesFlagVersionToRemove(sorted, removeThese);
+  arrayRemoveDuplicates(removeThese, sorted);
+  return sorted;
+});
 
 //console.log("rowsByCompany: ", rowsByCompany);
 
