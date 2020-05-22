@@ -115,37 +115,29 @@ const data =
     }
     ]
 
-const concatName = x => x['last_name'] + " " + x['first_name'];
-
-const valueType = val => typeof val === 'string' ? val.toUpperCase() : val;
-
 // argument 'propKey' value must be of type 'string' or 'number'
-const sortObjectsAsc = (array) => array.sort((a, b) => {
+const sortByLastThenFirstName = (array) => array.sort((a, b) => {
+  const valueType = val => typeof val === 'string' ? val.toUpperCase() : val;
+  const concatName = x => x['last_name'] + " " + x['first_name'];
 
   const valueA = valueType(concatName(a));
   const valueB = valueType(concatName(b));
-  
+
   if (valueA > valueB ) return 1;
   if (valueA < valueB) return -1;
   return 0; // if equal
 });
 
-const objectValuesByKey = array => propKey => array.reduce((a, c) => {
-  a.push(c[propKey]);
-  return a;
-}, []);
-
-//console.log(sortObjectsAsc(data));
-
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
-const companyRows = (array, co) => array.filter(row => row.insurance_company === co);
+const distinctCompanyRows = (array, co) => array.filter(row => row.insurance_company === co);
 
 const companies = []
 const byCo = array => distinctCompanyNames(array, 'insurance_company').map(co => {
-  const filtered = companyRows(data, co);
+  const filtered = distinctCompanyRows(data, co);
+  const sorted = sortByLastThenFirstName(filtered);
 
-  return companies.push(filtered);
+  return companies.push(sorted);
 });
 
 byCo(data);
