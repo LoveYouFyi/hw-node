@@ -5,6 +5,11 @@ const directoryPath = path.join(__dirname, 'parse-these-files');
 // app-specific 
 const appUtility = require('./app-utility');
 
+//
+// Run App:
+// $ cd to this directory
+// $ node app.js
+
 // Call for reach file that is to be processed
 // Reads from ./parse-these-files 
 // Writes to ./parsed-files
@@ -15,6 +20,7 @@ const readAndWrite = file => {
   // accumulate stream here
   const data = [];
 
+  // run stream 
   fs.createReadStream(parseFile)
     // checks for potential file errors before reading
     .on('err', (error) => {
@@ -33,6 +39,7 @@ const readAndWrite = file => {
     })
 }
 
+// 
 fs.readdir(directoryPath, (err, files) => {
   //handle error
   if (err) {
