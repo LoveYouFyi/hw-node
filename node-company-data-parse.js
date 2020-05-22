@@ -149,7 +149,7 @@ const duplicates =
 
 const arrayElementsToRemoveByIndex = []
 
-const arrayDuplicatesFlagVersionToRemove = (array, removeList) => array.sort((a, b) => {
+const duplicatesFlagLowVersionToRemove = (array, removeList) => array.sort((a, b) => {
   if (a.user_id === b.user_id) {
     if (a.version <= b.version) {
       const indexA = array.indexOf(a);
@@ -162,7 +162,7 @@ const arrayDuplicatesFlagVersionToRemove = (array, removeList) => array.sort((a,
   }
 });
 
-//arrayDuplicatesFlagVersionToRemove(duplicates, arrayElementsToRemoveByIndex);
+//duplicatesFlagLowVersionToRemove(duplicates, arrayElementsToRemoveByIndex);
 //console.log("11111 ", arrayElementsToRemoveByIndex);
 
 const arrayRemoveDuplicates = (arrayMap, arrayToTrim) => arrayMap.map((e) => {
@@ -188,11 +188,11 @@ const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
 const rowsByCompany = distinctCompanyNames(data, 'insurance_company').map(name => {
-  const removeThese = [];
+  const indexeTheseve = [];
   const filtered = distinctCompanyRows(data, name);
   const sorted = sortByLastThenFirstName(filtered);
-  arrayDuplicatesFlagVersionToRemove(sorted, removeThese);
-  arrayRemoveDuplicates(removeThese, sorted);
+  duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
+  arrayRemoveDuplicates(indexeTheseve, sorted);
   return sorted;
 });
 
