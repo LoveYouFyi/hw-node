@@ -40,7 +40,7 @@ const arrayRemoveDuplicates = (arrayToMap, arrayToTrim) => arrayToMap.map((e) =>
 
 const writeCSV = (data, name) => {
   const csvWriter = createCsvWriter({
-    path: `./parsed-files/${name}.txt`,
+    path: `./parsed-files/${name}.csv`,
     header: [
       {id: 'user_id', title: 'user_id'},
       {id: 'first_name', title: 'first_name'},
