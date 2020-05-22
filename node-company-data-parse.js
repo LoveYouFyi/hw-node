@@ -113,26 +113,67 @@ const data =
       version: '1',
       insurance_company: 'Orn'
     }
-    ]
+  ]
+
+const duplicates = 
+  [
+    {
+      user_id: 'mpagden4',
+      first_name: 'Miranda',
+      last_name: 'Pagden',
+      version: '8',
+      insurance_company: 'Orn'
+    },
+    {
+      user_id: 'mpagden4',
+      first_name: 'Miranda',
+      last_name: 'Pagden',
+      version: '6',
+      insurance_company: 'Orn'
+    },
+    {
+      user_id: 'jellerey8',
+      first_name: 'Jacquelin',
+      last_name: 'Ellerey',
+      version: '3',
+      insurance_company: 'Orn'
+    },
+    {
+      user_id: 'jmarlow9',
+      first_name: 'Jewel',
+      last_name: 'Marlow',
+      version: '6',
+      insurance_company: 'Orn'
+    }
+  ]
 
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
-  const concatName = x => x['last_name'] + " " + x['first_name'];
+  const fullName = e => `${e['last_name']} " " ${e['first_name']}`;
 
-  const valueA = concatName(a);
-  const valueB = concatName(b);
+  const valueA = fullName(a).toUpperCase();
+  const valueB = fullName(b).toUpperCase();
 
   if (valueA > valueB ) return 1;
   if (valueA < valueB) return -1;
   return 0; // if equal
 });
 
+const deDuped = (array) => array.sort((a, b) => {
+  if (a.user_id === b.user_id 
+      && a.user_id < b.user_id) {
+
+  }
+});
+
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
-const distinctCompanyRows = (array, co) => array.filter(row => row.insurance_company === co);
+const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
-const rowsByCompany = distinctCompanyNames(data, 'insurance_company').map(co => {
-  const filtered = distinctCompanyRows(data, co);
-  return sortByLastThenFirstName(filtered);
+const rowsByCompany = distinctCompanyNames(duplicates, 'insurance_company').map(name => {
+  const filtered = distinctCompanyRows(duplicates, name);
+  const sorted = sortByLastThenFirstName(filtered);
+
+  return sorted;
 });
 
 console.log("rowsByCompany: ", rowsByCompany);
