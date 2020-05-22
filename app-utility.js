@@ -39,21 +39,6 @@ const arrayRemoveDuplicates = (arrayToMap, arrayToTrim) => arrayToMap.map((e) =>
 // Duplicates Removal
 ////////////////////////////////////////////////////////////////////////////////
 
-// FIXME change output format from JSON to CSV 
-const writeFiles = (sorted, name) => {
-  // Write must be string...
-  let string = JSON.stringify(sorted);
-  let writeStream = fs.createWriteStream(`./parsed-files/${name}.txt`);
-  // write data
-  writeStream.write(string);
-  // finish event emitted once all data written from stream
-  writeStream.on('finish', () => {
-    console.log('Finished Write!');
-  });
-  // close stream / ends processing
-  writeStream.end();
-}
-
 const writeCSV = (data, name) => {
   const csvWriter = createCsvWriter({
     path: `./parsed-files/${name}.txt`,
