@@ -147,6 +147,16 @@ const duplicates =
     }
   ]
 
+const newArray = [];
+const deDuped = (array) => array.sort((a, b) => {
+  if (a.user_id === b.user_id 
+    && a.version <= b.version) {
+    console.log("a: ", array.indexOf(a));
+    array.splice(array.indexOf(a));
+  }
+});
+
+
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
   const fullName = e => `${e['last_name']} " " ${e['first_name']}`;
 
@@ -158,13 +168,6 @@ const sortByLastThenFirstName = (array) => array.sort((a, b) => {
   return 0; // if equal
 });
 
-const deDuped = (array) => array.sort((a, b) => {
-  if (a.user_id === b.user_id 
-      && a.user_id < b.user_id) {
-
-  }
-});
-
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
@@ -172,8 +175,9 @@ const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_c
 const rowsByCompany = distinctCompanyNames(duplicates, 'insurance_company').map(name => {
   const filtered = distinctCompanyRows(duplicates, name);
   const sorted = sortByLastThenFirstName(filtered);
+  const deDu = deDuped(sorted);
 
-  return sorted;
+  return deDu;
 });
 
 console.log("rowsByCompany: ", rowsByCompany);
