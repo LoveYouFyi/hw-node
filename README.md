@@ -1,7 +1,7 @@
 
 ## Nodejs Application that Parses CSV files using Streams
 
-Designed for parsing enrollment files of CSV format with fields:
+**Written to parse enrollment files of CSV format with fields:**
 
 * user_id
 * first_name
@@ -25,7 +25,7 @@ Each insurance company from the source CSV is saved separately into its own file
 
 1. From the project root, install node modules by running `npm install`
 
-1. Add your CSV files to the directory `/parse-these-files`
+1. Add your CSV files to the directory `/parse-these-files`. You can add whatever type of files you like to the `/parse-these-files` directory, but the app will only process files with extension *.CSV.
 
 1. From the project directory run one of the following commands:
 
