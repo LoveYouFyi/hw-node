@@ -39,14 +39,16 @@ const duplicatesFlagLowVersionToRemove = (array, indexesToRemove) => {
   const indexesRemove = [];
 
   array.sort((a, b) => {
+    const versionA = parseInt(a.version, 10);
+    const versionB = parseInt(b.version, 10);
 
     if (a.user_id === b.user_id) {
-      if (a.version <= b.version) {
+      if (versionA <= versionB) {
         const indexA = array.indexOf(a);
 //        console.log("a: ", indexA, a)
         indexesRemove.push(indexA);
       }
-      if (a.version >= b.version) {
+      if (versionA >= versionB) {
         const indexB = array.indexOf(b);
 //        console.log("b: ", indexB, b)
         indexesRemove.push(indexB);
