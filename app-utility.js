@@ -38,6 +38,20 @@ const arrayRemoveDuplicates = (arrayToMap, arrayToTrim) => arrayToMap.map((e) =>
 // Duplicates Removal
 ////////////////////////////////////////////////////////////////////////////////
 
+// FIXME change output format from JSON to CSV 
+const writeFiles = (sorted, name) => {
+  // Write must be string...
+  let string = JSON.stringify(sorted);
+  let writeStream = fs.createWriteStream(`./parsed-files/${name}.txt`);
+  // write data
+  writeStream.write(string);
+  // finish event emitted once all data written from stream
+  writeStream.on('finish', () => {
+    console.log('Finished Write!');
+  });
+  // close stream / ends processing
+  writeStream.end();
+}
 
 const rowsByCompany = (array) => 
   distinctCompanyNames(array, 'insurance_company').map(name => {
@@ -46,19 +60,7 @@ const rowsByCompany = (array) =>
     const sorted = sortByLastThenFirstName(filtered);
     duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
     arrayRemoveDuplicates(indexeTheseve, sorted);
-
-    let string = JSON.stringify(sorted);
-    let writeStream = fs.createWriteStream(`./parsed-files/${name}.txt`);
-    // write data
-    writeStream.write(string);
-    // finish event emitted once all data written from stream
-    writeStream.on('finish', () => {
-      console.log('Finished Write!');
-    });
-    // close stream / ends processing
-    writeStream.end();
-
-    return sorted;
+    return writeFiles(sorted, name);
   });
 
 exports.parse = rowsByCompany;
