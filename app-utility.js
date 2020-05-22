@@ -18,18 +18,28 @@ const sortByLastThenFirstName = (array) => array.sort((a, b) => {
 ////////////////////////////////////////////////////////////////////////////////
 // Duplicates Removal
 //
-const duplicatesFlagLowVersionToRemove = (array, removeList) => array.sort((a, b) => {
-  if (a.user_id === b.user_id) {
-    if (a.version <= b.version) {
-      const indexA = array.indexOf(a);
-      removeList.push(indexA);
+const duplicatesFlagLowVersionToRemove = (array, indexesToRemove) => {
+  const indexesRemove = [];
+
+  array.sort((a, b) => {
+
+    if (a.user_id === b.user_id) {
+      if (a.version <= b.version) {
+        const indexA = array.indexOf(a);
+        console.log("a: ", indexA, a)
+        indexesRemove.push(indexA);
+      }
+      if (a.version >= b.version) {
+        const indexB = array.indexOf(b);
+        console.log("b: ", indexB, b)
+        indexesRemove.push(indexB);
+      }
     }
-    if (a.version >= b.version) {
-      const indexB = array.indexOf(b);
-      removeList.push(indexB);
-    }
-  }
-});
+
+  });
+  console.log("indexexRemove 4444444444444444444444444 ", indexesRemove);
+  return indexesRemove;
+}
 
 const arrayRemoveDuplicates = (arrayToMap, arrayToTrim) => arrayToMap.map((e) => {
   return arrayToTrim.splice(e, 1);
@@ -55,13 +65,16 @@ const writeCSV = (data, name) => {
     .then(()=> console.log('The CSV file was written successfully'));
 }
 
-const rowsByCompany = (array) => 
-  distinctCompanyNames(array, 'insurance_company').map(name => {
-    const indexeTheseve = [];
-    const filtered = distinctCompanyRows(array, name);
+const rowsByCompany = (data) => 
+  distinctCompanyNames(data, 'insurance_company').map(name => {
+    const indexesToRemove = [];
+    const filtered = distinctCompanyRows(data, name);
     const sorted = sortByLastThenFirstName(filtered);
-    duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
-    arrayRemoveDuplicates(indexeTheseve, sorted);
+    duplicatesFlagLowVersionToRemove(sorted, indexesToRemove);
+    console.log("Here $$$$$$$$$$$$$$$$ ", duplicatesFlagLowVersionToRemove(sorted, indexesToRemove));
+    console.log("sorted: ", sorted);
+    console.log("indexesToRemove: ", indexesToRemove);
+    arrayRemoveDuplicates(indexesToRemove, sorted);
     return writeCSV(sorted, name);
   });
 
