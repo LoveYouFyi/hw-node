@@ -115,13 +115,11 @@ const data =
     }
     ]
 
-// argument 'propKey' value must be of type 'string' or 'number'
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
-  const valueType = val => typeof val === 'string' ? val.toUpperCase() : val;
   const concatName = x => x['last_name'] + " " + x['first_name'];
 
-  const valueA = valueType(concatName(a));
-  const valueB = valueType(concatName(b));
+  const valueA = concatName(a);
+  const valueB = concatName(b);
 
   if (valueA > valueB ) return 1;
   if (valueA < valueB) return -1;
