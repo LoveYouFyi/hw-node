@@ -1,4 +1,3 @@
-const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
@@ -64,7 +63,6 @@ const rowsByCompany = (array) =>
     duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
     arrayRemoveDuplicates(indexeTheseve, sorted);
     return writeCSV(sorted, name);
-    //return writeFiles(sorted, name);
   });
 
 exports.parse = rowsByCompany;
