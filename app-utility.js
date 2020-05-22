@@ -1,3 +1,4 @@
+const fs = require('fs');
 
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
@@ -37,14 +38,28 @@ const arrayRemoveDuplicates = (arrayToMap, arrayToTrim) => arrayToMap.map((e) =>
 // Duplicates Removal
 ////////////////////////////////////////////////////////////////////////////////
 
-const rowsByCompany = array => distinctCompanyNames(array, 'insurance_company').map(name => {
-  const indexeTheseve = [];
-  const filtered = distinctCompanyRows(array, name);
-  const sorted = sortByLastThenFirstName(filtered);
-  duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
-  arrayRemoveDuplicates(indexeTheseve, sorted);
-  return sorted;
-});
+
+const rowsByCompany = (array) => 
+  distinctCompanyNames(array, 'insurance_company').map(name => {
+    const indexeTheseve = [];
+    const filtered = distinctCompanyRows(array, name);
+    const sorted = sortByLastThenFirstName(filtered);
+    duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
+    arrayRemoveDuplicates(indexeTheseve, sorted);
+
+    let string = JSON.stringify(sorted);
+    let writeStream = fs.createWriteStream(`${name}.txt`);
+    // write data
+    writeStream.write(string);
+    // finish event emitted once all data written from stream
+    writeStream.on('finish', () => {
+      console.log('Finished Write!');
+    });
+    // close stream / ends processing
+    writeStream.end();
+
+    return sorted;
+  });
 
 exports.parse = rowsByCompany;
 

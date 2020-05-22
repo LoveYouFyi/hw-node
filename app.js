@@ -5,7 +5,7 @@ const appUtility = require('./app-utility');
 const file = './parseme.csv'
 
 
-let writeStream = fs.createWriteStream('company1.txt');
+//let writeStream = company => fs.createWriteStream(`${company}.txt`);
 let data = [];
 
 fs.createReadStream(file)
@@ -24,11 +24,10 @@ fs.createReadStream(file)
     console.log("Finished Read!");
 //    console.log(data)
     console.log(appUtility.parse(data));
+    appUtility.parse(data);
   })
 
 //  .pipe(writeStream)
-
-
 
 /*
 // write data
