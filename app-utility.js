@@ -48,7 +48,7 @@ const rowsByCompany = (array) =>
     arrayRemoveDuplicates(indexeTheseve, sorted);
 
     let string = JSON.stringify(sorted);
-    let writeStream = fs.createWriteStream(`${name}.txt`);
+    let writeStream = fs.createWriteStream(`./parsed-files/${name}.txt`);
     // write data
     writeStream.write(string);
     // finish event emitted once all data written from stream
