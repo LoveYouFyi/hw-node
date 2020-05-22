@@ -187,14 +187,14 @@ const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => 
 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
-const rowsByCompany = distinctCompanyNames(data, 'insurance_company').map(name => {
+const rowsByCompany = array => distinctCompanyNames(array, 'insurance_company').map(name => {
   const indexeTheseve = [];
-  const filtered = distinctCompanyRows(data, name);
+  const filtered = distinctCompanyRows(array, name);
   const sorted = sortByLastThenFirstName(filtered);
   duplicatesFlagLowVersionToRemove(sorted, indexeTheseve);
   arrayRemoveDuplicates(indexeTheseve, sorted);
   return sorted;
 });
 
-console.log("rowsByCompany: ", rowsByCompany);
+console.log("rowsByCompany: ", rowsByCompany(data));
 

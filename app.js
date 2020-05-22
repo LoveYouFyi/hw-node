@@ -1,5 +1,6 @@
 const fs = require('fs');
 const csvParser = require('csv-parser');
+const appUtility = require('./app-utility');
 // files
 const file = './parseme.csv'
 
@@ -16,13 +17,13 @@ fs.createReadStream(file)
   .pipe(csvParser())
   // reads each row individually 
   .on('data', row => {
-//    console.log({ row });
     data.push(row)
   })
   // once read finished
   .on('end', () => {
     console.log("Finished Read!");
-    console.log(data)
+//    console.log(data)
+    console.log(appUtility.parse(data));
   })
 
 //  .pipe(writeStream)
