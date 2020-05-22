@@ -1,9 +1,13 @@
+// writes from object format to csv rows
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
+// Unique insurance_company names from data rows (used for map argument)
 const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => prop[propType]))];
 
+// Rows belonging to one specific insurance_company (used for map argument) 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
+// Sort rows by last name then first name, all to uppercase for true evaluation
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
   const fullName = e => `${e['last_name']} " " ${e['first_name']}`;
 

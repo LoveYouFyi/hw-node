@@ -2,5 +2,6 @@ node_modules
 
 .DS_Store
 
-parse-these-files/*
-parsed-files/*
+parse-these-files/*.csv
+parsed-files/*.csv
+
