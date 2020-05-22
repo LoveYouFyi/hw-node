@@ -132,15 +132,10 @@ const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => 
 
 const distinctCompanyRows = (array, co) => array.filter(row => row.insurance_company === co);
 
-const companies = []
-const byCo = array => distinctCompanyNames(array, 'insurance_company').map(co => {
+const rowsByCompany = distinctCompanyNames(data, 'insurance_company').map(co => {
   const filtered = distinctCompanyRows(data, co);
-  const sorted = sortByLastThenFirstName(filtered);
-
-  return companies.push(sorted);
+  return sortByLastThenFirstName(filtered);
 });
 
-byCo(data);
-console.log("got: ", companies);
-
+console.log("rowsByCompany: ", rowsByCompany);
 
