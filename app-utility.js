@@ -5,8 +5,8 @@ const writeCSV = (data, name) => {
     path: `./parsed-files/${name}.csv`,
     header: [
       {id: 'user_id', title: 'user_id'},
-      {id: 'first_name', title: 'first_name'},
       {id: 'last_name', title: 'last_name'},
+      {id: 'first_name', title: 'first_name'},
       {id: 'version', title: 'version'},
       {id: 'insurance_company', title: 'insurance_company'},
     ]
@@ -74,17 +74,12 @@ const newData = (array, removeValFrom) => array.filter(function(value, index) {
 
 const rowsByCompany = (data) => 
   distinctCompanyNames(data, 'insurance_company').map(name => {
-//    const indexesToRemove = [];
     const filtered = distinctCompanyRows(data, name);
     const sorted = sortByLastThenFirstName(filtered);
     const indexesToRemove = duplicatesFlagLowVersionToRemove(sorted);
-    console.log("indexesToRemove: ", indexesToRemove);
-//    const removed = arrayRemoveDuplicates(indexesToRemove, sorted);
-//    console.log("removed: %%%%%%%%%%%%%%%%% ", removed);
-//    console.log("sorted: ", sorted);
-    const final = newData(sorted, indexesToRemove);
-    console.log("final $$$$$$$$$$$$$$$$$$ ", final);
-    return writeCSV(final, name);
+    const parsedData = newData(sorted, indexesToRemove);
+    const sortFinal = sortByLastThenFirstName(parsedData);
+    return writeCSV(sortFinal, name);
   });
 
 exports.parse = rowsByCompany;
