@@ -167,6 +167,14 @@ const deDuped = (array) => array.sort((a, b) => {
 deDuped(duplicates);
 console.log("remove: ", remove);
 
+const me = remove.map((e) => {
+  console.log("hello 1 ", duplicates[e]);
+  return duplicates.splice(e, 1);
+});
+
+console.log("me: ", me);
+console.log("duplicates: ", duplicates);
+
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
   const fullName = e => `${e['last_name']} " " ${e['first_name']}`;
 
