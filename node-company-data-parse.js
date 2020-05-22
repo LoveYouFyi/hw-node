@@ -147,10 +147,6 @@ const duplicates =
     }
   ]
 
-const mine = [{ id: 1 }, { id: 2 }, { id: 3 }];
-mine.splice(1, 1);
-console.log("mine: ", mine);
-
 const remove = []
 const deDuped = (array) => array.sort((a, b) => {
   if (a.user_id === b.user_id) {
