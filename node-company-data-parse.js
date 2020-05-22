@@ -162,16 +162,15 @@ const arrayDuplicatesFlagVersionToRemove = (array, removeList) => array.sort((a,
   }
 });
 
-arrayDuplicatesFlagVersionToRemove(duplicates, arrayElementsToRemoveByIndex);
-console.log("11111 ", arrayElementsToRemoveByIndex);
+//arrayDuplicatesFlagVersionToRemove(duplicates, arrayElementsToRemoveByIndex);
+//console.log("11111 ", arrayElementsToRemoveByIndex);
 
 const arrayRemoveDuplicates = (arrayMap, arrayToTrim) => arrayMap.map((e) => {
-//  console.log("hello 1 ", arrayToTrim[e]);
   return arrayToTrim.splice(e, 1);
 });
 
-console.log("me: ", arrayRemoveDuplicates(arrayElementsToRemoveByIndex, duplicates));
-console.log("duplicates: ", duplicates);
+//console.log("me: ", arrayRemoveDuplicates(arrayElementsToRemoveByIndex, duplicates));
+//console.log("duplicates: ", duplicates);
 
 const sortByLastThenFirstName = (array) => array.sort((a, b) => {
   const fullName = e => `${e['last_name']} " " ${e['first_name']}`;
@@ -188,14 +187,14 @@ const distinctCompanyNames = (array, propType) => [...new Set(array.map(prop => 
 
 const distinctCompanyRows = (array, name) => array.filter(row => row.insurance_company === name);
 
-const rowsByCompany = distinctCompanyNames(duplicates, 'insurance_company').map(name => {
+const rowsByCompany = distinctCompanyNames(data, 'insurance_company').map(name => {
   const removeThese = [];
-  const filtered = distinctCompanyRows(duplicates, name);
+  const filtered = distinctCompanyRows(data, name);
   const sorted = sortByLastThenFirstName(filtered);
   arrayDuplicatesFlagVersionToRemove(sorted, removeThese);
   arrayRemoveDuplicates(removeThese, sorted);
   return sorted;
 });
 
-//console.log("rowsByCompany: ", rowsByCompany);
+console.log("rowsByCompany: ", rowsByCompany);
 
